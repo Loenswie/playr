@@ -1,0 +1,29 @@
+# Render blueprint for PLAYR: one Node web service that serves both the API and
+# the built React app, plus one managed PostgreSQL database.
+services:
+  - type: web
+    name: playr
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        fromDatabase:
+          name: playr-db
+          property: connectionString
+      - key: SESSION_SECRET
+        generateValue: true
+      # Set these in the Render dashboard; they are never committed.
+      - key: TWITCH_CLIENT_ID
+        sync: false
+      - key: TWITCH_CLIENT_SECRET
+        sync: false
+
+databases:
+  - name: playr-db
+    plan: free
+    postgresMajorVersion: "16"
