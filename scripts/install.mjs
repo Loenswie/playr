@@ -1,6 +1,6 @@
 // Installs dependencies for server/ and client/.
 //
-// PLAYR is deliberately NOT an npm workspace and never uses `npm --prefix`.
+// Playr is deliberately NOT an npm workspace and never uses `npm --prefix`.
 // Both of those make npm create directory symlinks inside node_modules, which
 // fails on Windows drives that do not support symlinks (EISDIR / EPERM).
 // Running a plain `npm install` with the working directory set to each package
@@ -18,7 +18,9 @@ const env = Object.fromEntries(
 
 for (const dir of ['server', 'client']) {
   console.log(`\n> installing ${dir} dependencies`);
-  const result = spawnSync(npm, ['install'], {
+  // --include=dev is required because hosts such as Render set NODE_ENV=production,
+  // and npm then skips devDependencies - which is where tsc, vite and tsx live.
+  const result = spawnSync(npm, ['install', '--include=dev'], {
     cwd: dir,
     env,
     stdio: 'inherit',

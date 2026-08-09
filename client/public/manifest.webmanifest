@@ -1,6 +1,6 @@
 {
-  "name": "PLAYR - Discover your next game",
-  "short_name": "PLAYR",
+  "name": "Playr - Discover your next game",
+  "short_name": "Playr",
   "description": "Discover games, swipe on them, and build your personal game library.",
   "start_url": "/",
   "scope": "/",

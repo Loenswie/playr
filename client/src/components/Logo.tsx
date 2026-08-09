@@ -18,7 +18,7 @@ export function Logo({ height = 24, variant = 'white', className = '' }: LogoPro
   return (
     <img
       src={SOURCES[variant]}
-      alt="PLAYR"
+      alt="Playr"
       height={height}
       style={{ height }}
       className={`w-auto select-none ${className}`}

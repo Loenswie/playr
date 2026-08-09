@@ -1,10 +1,10 @@
-# PLAYR
+# Playr
 
 **Discover games. Swipe on them. Build your personal library. Decide what to play next.**
 
-PLAYR is a game discovery and backlog-tracking app. You swipe through games, sort them into
+Playr is a game discovery and backlog-tracking app. You swipe through games, sort them into
 *want to play* / *playing* / *played* / *not interested*, rate what you have finished, and let
-PLAYR pick your next game when you cannot decide.
+Playr pick your next game when you cannot decide.
 
 It is a mobile-first responsive web app and an installable PWA.
 
@@ -46,14 +46,14 @@ Three things worth knowing:
 1. **One service, one origin.** In production Express serves both `/api/*` and the built React
    app. There is no CORS configuration to get wrong and no cross-site cookie handling. The dev
    server proxies `/api` to Express so development behaves identically.
-2. **IGDB credentials never reach the browser.** The client only ever talks to PLAYR's own API.
+2. **IGDB credentials never reach the browser.** The client only ever talks to Playr's own API.
    Every IGDB call is proxied, rate-limited and cached server-side.
 3. **Two plain packages, no workspace.** `server/` and `client/` each own their dependencies.
    The root package has none; `npm install` runs `scripts/install.mjs`, which installs each one
    with its working directory set to that folder. This is deliberate: npm workspaces (and
    `npm --prefix`) create directory symlinks inside `node_modules`, which fail on Windows drives
    that do not support symlinks. Nothing here needs a symlink.
-4. **PLAYR owns user data, IGDB owns discovery.** Games are only written to PostgreSQL when a
+4. **Playr owns user data, IGDB owns discovery.** Games are only written to PostgreSQL when a
    user actually interacts with them. The full IGDB catalogue is never mirrored.
 
 ## Tech stack
@@ -96,7 +96,7 @@ If the password contains `@`, `:`, `/` or `#`, percent-encode it (`@` becomes `%
 
 **Linux** - install `postgresql` from your package manager and make sure the service is running.
 
-You do **not** need to create the database by hand. Outside production, PLAYR creates the
+You do **not** need to create the database by hand. Outside production, Playr creates the
 database named in `DATABASE_URL` on the first `npm run db:migrate` (or the first server start).
 
 ```bash
@@ -124,7 +124,7 @@ npm run dev
 
 Register an account at `/register` and start swiping.
 
-> Without IGDB credentials PLAYR still runs: discovery and search fall back to the seeded games
+> Without IGDB credentials Playr still runs: discovery and search fall back to the seeded games
 > in your local database. Add credentials to browse the real catalogue.
 
 ## Environment variables
@@ -150,7 +150,7 @@ IGDB is authenticated through Twitch OAuth, so you need a Twitch application:
 3. Copy the **Client ID** and generate a **Client Secret**.
 4. Put both in `server/.env` as `TWITCH_CLIENT_ID` and `TWITCH_CLIENT_SECRET`.
 
-PLAYR exchanges them for an app access token automatically, caches the token until just before
+Playr exchanges them for an app access token automatically, caches the token until just before
 it expires, and refreshes it on demand. IGDB permits roughly four requests per second; the
 server serialises requests with a small gap and caches discovery and search responses for five
 minutes.
@@ -233,28 +233,46 @@ core behaviour rather than on a percentage:
 
 ## Deploying to Render
 
-The repository includes `render.yaml`, so the fastest route is **New → Blueprint** pointed at
-your fork. It provisions one web service and one PostgreSQL database.
+The repository includes `render.yaml`, so **New -> Blueprint** pointed at your repo is the
+fastest route. It creates one web service; the database is external and supplied through
+`DATABASE_URL`.
 
-To do it manually:
+To do it by hand:
 
-1. **New → PostgreSQL.** Create the database and copy its *Internal Database URL*.
-2. **New → Web Service**, pointed at the repository.
+1. **New -> Web Service**, connect your Git repository.
    - Runtime: **Node**
    - Build command: `npm install && npm run build`
    - Start command: `npm start`
    - Health check path: `/api/health`
-3. Set environment variables on the service:
-   - `NODE_ENV=production`
-   - `DATABASE_URL` - the internal database URL from step 1
-   - `SESSION_SECRET` - a long random string
-   - `TWITCH_CLIENT_ID`, `TWITCH_CLIENT_SECRET`
-4. Deploy. Migrations run automatically on boot.
+2. Add the environment variables:
+
+   | Key | Value |
+   |---|---|
+   | `NODE_ENV` | `production` |
+   | `DATABASE_URL` | your Neon (or other) connection string, including `?sslmode=require` |
+   | `SESSION_SECRET` | a long random string |
+   | `TWITCH_CLIENT_ID` | your IGDB client id |
+   | `TWITCH_CLIENT_SECRET` | your IGDB client secret |
+
+3. Deploy. Migrations run automatically on boot.
+
+**Using Render's own Postgres instead.** Create a PostgreSQL instance in Render and paste its
+*Internal Database URL* as `DATABASE_URL`. Everything else is identical. Note that the database
+must already exist: unlike development, Playr never creates one in production, because the
+application user usually lacks permission.
+
+**Two things that catch people out.**
+
+`NODE_ENV=production` makes npm skip devDependencies, which is where `tsc`, `vite` and `tsx`
+live. `scripts/install.mjs` therefore passes `--include=dev`, so the build works regardless.
+
+The free plan sleeps after inactivity, and a free Neon database suspends too. The first request
+after a quiet spell can take several seconds. That is the platform, not the app.
 
 **Why a single service?** The React app is static, so serving it from Express costs nothing and
 removes an entire class of problems: no cross-origin cookies (`SameSite=None` is not needed), no
 CORS allowlist to maintain, one URL, one TLS certificate, one deploy. If you later want a
-separate static site, set `CORS_ORIGIN` to its URL and PLAYR switches cookies to `SameSite=None`
+separate static site, set `CORS_ORIGIN` to its URL and Playr switches cookies to `SameSite=None`
 automatically - but you would then need to add CSRF tokens for state-changing requests.
 
 ## PWA
@@ -301,7 +319,7 @@ To install: open the app in Chrome/Edge/Safari and choose *Install app* / *Add t
 playr/
 ├── client/
 │   ├── public/
-│   │   ├── logos/         the PLAYR wordmark (white, purple, black)
+│   │   ├── logos/         the Playr wordmark (white, purple, black)
 │   │   └── icons/         PWA icons, generated from the wordmark
 │   │   (also: manifest.webmanifest, sw.js)
 │   └── src/
@@ -344,7 +362,7 @@ three sizes (192, 512, and a full-bleed maskable 512).
 ## Troubleshooting
 
 **`npm install` fails with `EISDIR: illegal operation on a directory, symlink ...`**
-Some Windows drives and network/synced folders do not support directory symlinks. PLAYR avoids
+Some Windows drives and network/synced folders do not support directory symlinks. Playr avoids
 them entirely, so this should not happen - but if you see it, check that you are not running an
 older copy of `package.json` that declared `workspaces`. Delete every `node_modules` folder and
 `package-lock.json`, then run `npm install` again.
@@ -376,7 +394,7 @@ Deliberately out of scope for this MVP:
 - **Discovery pagination is offset-based.** Deep pagination through IGDB will eventually repeat
   or run dry; the queue reloads from offset 0 when exhausted.
 - **IGDB's `category` field is being retired.** Discovery and search try the strict
-  main-games-only filter first and fall back to a relaxed one when it matches nothing, so PLAYR
+  main-games-only filter first and fall back to a relaxed one when it matches nothing, so Playr
   keeps working through the change. Once your account is fully on `game_type`, the first query
   is wasted effort and the filters in `server/src/services/igdb.ts` can be simplified.
 - **No frontend test suite.** Backend behaviour is tested; the UI is covered by TypeScript and

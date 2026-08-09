@@ -2,7 +2,7 @@ import pg from 'pg';
 import { config } from '../config.js';
 
 // Postgres returns NUMERIC as a string by default to avoid precision loss.
-// PLAYR only stores small ratings, so parsing them as numbers is safe here.
+// Playr only stores small ratings, so parsing them as numbers is safe here.
 pg.types.setTypeParser(pg.types.builtins.NUMERIC, (value) => Number(value));
 
 // TLS is decided by the connection string first, so a hosted database (Render,

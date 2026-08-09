@@ -36,7 +36,7 @@ const GAME_COLUMNS = `id, external_id, title, slug, description, cover_url,
 
 /**
  * Stores a game the user interacted with, or refreshes its metadata if we
- * already know it. PLAYR only persists games that matter to a user.
+ * already know it. Playr only persists games that matter to a user.
  */
 export async function saveGame(game: Omit<Game, 'id'>): Promise<Game> {
   const { rows } = await query<GameRow>(

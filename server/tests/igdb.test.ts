@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 // These tests never touch the network: fetch is stubbed so the exact APIcalypse
-// queries PLAYR builds can be inspected.
+// queries Playr builds can be inspected.
 process.env.TWITCH_CLIENT_ID = 'test-client-id';
 process.env.TWITCH_CLIENT_SECRET = 'test-client-secret';
 
@@ -79,7 +79,7 @@ describe('discovery queries', () => {
     expect(query).toContain('id != (11,22)');
   });
 
-  it('normalises IGDB fields into PLAYR shape', async () => {
+  it('normalises IGDB fields into Playr shape', async () => {
     stubFetch(() => SAMPLE);
     const [game] = await igdb.discoverGames([], 5, 3);
 
@@ -87,7 +87,7 @@ describe('discovery queries', () => {
       externalId: 1,
       title: 'Hades',
       releaseDate: '2020-09-17',
-      rating: 9.1, // IGDB scores out of 100, PLAYR shows out of 10
+      rating: 9.1, // IGDB scores out of 100, Playr shows out of 10
       coverUrl: 'https://images.igdb.com/igdb/image/upload/t_cover_big/co39vc.jpg',
       genres: ['Indie'],
       platforms: ['PC'],

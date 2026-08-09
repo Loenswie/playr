@@ -11,7 +11,7 @@ async function start(): Promise<void> {
   // No host argument: Node picks the dual-stack address when IPv6 is available
   // and falls back to IPv4 when it is not.
   const server = createApp().listen(config.port, () => {
-    console.log(`PLAYR API listening on http://127.0.0.1:${config.port} (${config.nodeEnv})`);
+    console.log(`Playr API listening on http://127.0.0.1:${config.port} (${config.nodeEnv})`);
     console.log(
       isIgdbConfigured
         ? 'Discovery source: IGDB'
@@ -41,6 +41,6 @@ async function start(): Promise<void> {
 }
 
 start().catch((error: unknown) => {
-  console.error('Failed to start PLAYR', error);
+  console.error('Failed to start Playr', error);
   process.exit(1);
 });

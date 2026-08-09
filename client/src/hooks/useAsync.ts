@@ -9,7 +9,7 @@ type AsyncState<T> = {
 };
 
 /**
- * Runs an async loader and tracks loading/error/data. Small on purpose - PLAYR
+ * Runs an async loader and tracks loading/error/data. Small on purpose - Playr
  * does not need a full server-state library for a handful of endpoints.
  */
 export function useAsync<T>(loader: () => Promise<T>, deps: unknown[] = []): AsyncState<T> {

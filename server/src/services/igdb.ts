@@ -12,7 +12,7 @@ export class IgdbUnavailableError extends Error {
   }
 }
 
-// --- Raw IGDB shapes (only the fields PLAYR asks for) -----------------------
+// --- Raw IGDB shapes (only the fields Playr asks for) -----------------------
 
 type IgdbImage = { image_id?: string };
 type IgdbNamed = { name?: string; abbreviation?: string };
@@ -68,7 +68,7 @@ async function getAccessToken(): Promise<string> {
 // --- Request throttling + response cache ------------------------------------
 
 // IGDB allows roughly 4 requests per second. Serialising with a small gap keeps
-// PLAYR comfortably inside that budget without a queueing library.
+// Playr comfortably inside that budget without a queueing library.
 const MIN_REQUEST_GAP_MS = 260;
 let nextRequestAt = 0;
 
@@ -177,7 +177,7 @@ function normalise(game: IgdbGame): Omit<Game, 'id'> | null {
     releaseDate: game.first_release_date
       ? new Date(game.first_release_date * 1000).toISOString().slice(0, 10)
       : null,
-    // IGDB scores games out of 100; PLAYR shows everything on a 10-point scale.
+    // IGDB scores games out of 100; Playr shows everything on a 10-point scale.
     rating: typeof game.total_rating === 'number' ? Math.round(game.total_rating) / 10 : null,
     genres: (game.genres ?? []).map((g) => g.name).filter((n): n is string => Boolean(n)),
     platforms: (game.platforms ?? [])

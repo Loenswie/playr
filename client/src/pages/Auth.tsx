@@ -34,7 +34,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-md flex-col justify-center px-6 py-12">
-      <Link to="/" className="mb-10 self-start" aria-label="PLAYR home">
+      <Link to="/" className="mb-10 self-start" aria-label="Playr home">
         <Logo height={26} />
       </Link>
 
@@ -95,7 +95,7 @@ export function AuthPage({ mode }: { mode: Mode }) {
       <p className="mt-6 text-center text-sm text-slate-400">
         {mode === 'login' ? (
           <>
-            New to PLAYR?{' '}
+            New to Playr?{' '}
             <Link to="/register" className="text-accent-soft hover:underline">
               Create an account
             </Link>

@@ -18,8 +18,8 @@ export function Landing() {
       </h1>
 
       <p className="mt-6 max-w-lg text-base leading-relaxed text-slate-400">
-        PLAYR turns that endless pile of unplayed games into something you actually finish. Swipe through
-        thousands of games, keep track of what you're playing, and let PLAYR pick your next one.
+        Playr turns that endless pile of unplayed games into something you actually finish. Swipe through
+        thousands of games, keep track of what you're playing, and let Playr pick your next one.
       </p>
 
       <div className="mt-10 flex flex-col gap-3 sm:flex-row">
@@ -39,7 +39,7 @@ export function Landing() {
         {[
           ['Swipe to sort', 'Right to save it for later, left to never see it again.'],
           ['One library', 'Want to play, playing, played. All in one place, on any device.'],
-          ['What next?', 'One tap and PLAYR picks your next game for you.'],
+          ['What next?', 'One tap and Playr picks your next game for you.'],
         ].map(([title, description]) => (
           <li key={title} className="surface p-5">
             <p className="font-medium text-slate-100">{title}</p>

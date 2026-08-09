@@ -1,7 +1,7 @@
 export const GAME_STATUSES = ['WANT_TO_PLAY', 'PLAYING', 'PLAYED', 'NOT_INTERESTED'] as const;
 export type GameStatus = (typeof GAME_STATUSES)[number];
 
-/** A game as PLAYR stores and returns it. Shared shape between IGDB and the database. */
+/** A game as Playr stores and returns it. Shared shape between IGDB and the database. */
 export type Game = {
   id: number;
   externalId: number;

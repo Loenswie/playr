@@ -17,7 +17,7 @@ function Protected({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
   const location = useLocation();
 
-  if (loading) return <LoadingState label="Starting PLAYR" />;
+  if (loading) return <LoadingState label="Starting Playr" />;
   if (!user) return <Navigate to="/login" replace state={{ from: location.pathname }} />;
 
   return (
@@ -31,7 +31,7 @@ function Protected({ children }: { children: ReactNode }) {
 
 function PublicOnly({ children }: { children: ReactNode }) {
   const { user, loading } = useAuth();
-  if (loading) return <LoadingState label="Starting PLAYR" />;
+  if (loading) return <LoadingState label="Starting Playr" />;
   return user ? <Navigate to="/" replace /> : <>{children}</>;
 }
 
@@ -44,7 +44,7 @@ export function App() {
         path="/"
         element={
           loading ? (
-            <LoadingState label="Starting PLAYR" />
+            <LoadingState label="Starting Playr" />
           ) : user ? (
             <Protected>
               <Dashboard />

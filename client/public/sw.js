@@ -1,4 +1,4 @@
-// PLAYR service worker.
+// Playr service worker.
 //
 // Scope is deliberately small: cache the app shell and static assets so the app
 // opens offline, and never touch /api. A cached API response could show stale

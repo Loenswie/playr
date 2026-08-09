@@ -17,7 +17,7 @@ export const authLimiter = rateLimit({
   skip,
 });
 
-/** Protects the IGDB proxy so PLAYR never hammers the upstream API. */
+/** Protects the IGDB proxy so Playr never hammers the upstream API. */
 export const igdbLimiter = rateLimit({
   windowMs: 60 * 1000,
   limit: 60,

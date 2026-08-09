@@ -60,7 +60,7 @@ export function Discover() {
       // Keep a small buffer of cards ahead of the user.
       if (queue.length <= 4) void load(offset, false);
     } catch (cause) {
-      // The card stays put: PLAYR never pretends a save succeeded.
+      // The card stays put: Playr never pretends a save succeeded.
       setSaveError(
         cause instanceof ApiError && cause.status === 0
           ? "You're offline, so that didn't save. Try again once you're back."

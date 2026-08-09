@@ -20,7 +20,7 @@ async function apiFetch<T>(path: string, init?: RequestInit): Promise<T> {
       headers: init?.body ? { 'Content-Type': 'application/json', ...init.headers } : init?.headers,
     });
   } catch {
-    throw new ApiError(0, "Can't reach PLAYR. Check your connection and try again.");
+    throw new ApiError(0, "Can't reach Playr. Check your connection and try again.");
   }
 
   if (response.status === 204) return undefined as T;

@@ -2,7 +2,7 @@
   "name": "playr",
   "version": "1.0.0",
   "private": true,
-  "description": "PLAYR - discover games, swipe on them, build your library.",
+  "description": "Playr - discover games, swipe on them, build your library.",
   "engines": {
     "node": ">=18.17.0"
   },

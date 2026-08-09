@@ -1,5 +1,6 @@
-# Render blueprint for PLAYR: one Node web service that serves both the API and
-# the built React app, plus one managed PostgreSQL database.
+# Render blueprint for Playr: one Node web service that serves both the API and
+# the built React app. The database is external (Neon, Supabase, or Render's own
+# managed Postgres) and supplied through DATABASE_URL.
 services:
   - type: web
     name: playr
@@ -11,19 +12,12 @@ services:
     envVars:
       - key: NODE_ENV
         value: production
+      # Set these in the Render dashboard. sync: false keeps them out of the repo.
       - key: DATABASE_URL
-        fromDatabase:
-          name: playr-db
-          property: connectionString
-      - key: SESSION_SECRET
-        generateValue: true
-      # Set these in the Render dashboard; they are never committed.
+        sync: false
       - key: TWITCH_CLIENT_ID
         sync: false
       - key: TWITCH_CLIENT_SECRET
         sync: false
-
-databases:
-  - name: playr-db
-    plan: free
-    postgresMajorVersion: "16"
+      - key: SESSION_SECRET
+        generateValue: true

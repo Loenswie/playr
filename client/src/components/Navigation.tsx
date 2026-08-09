@@ -107,7 +107,7 @@ export function Navigation() {
   return (
     <header className="sticky top-0 z-40 hidden border-b border-white/5 bg-ink-950/75 backdrop-blur-xl md:block">
       <div className="mx-auto flex max-w-6xl items-center gap-6 px-6 py-3">
-        <NavLink to="/" aria-label="PLAYR home" className="shrink-0">
+        <NavLink to="/" aria-label="Playr home" className="shrink-0">
           <Logo height={22} />
         </NavLink>
 
